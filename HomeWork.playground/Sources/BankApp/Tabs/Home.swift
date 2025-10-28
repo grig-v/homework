@@ -7,9 +7,19 @@
 
 
 public final class Home: Tab {
-     var cards: [Card]
+    public var cards: [Card?]?
     
-    public init(cards: [Card]) {
+    public init(cards: [Card?]?) {
         self.cards = cards
+    }
+    
+    public func noNilCards() -> [Card] {
+        var result = [Card]()
+        if let cards {
+            for case let i? in cards {
+                result.append(i)
+            } 
+        }
+        return result
     }
 }

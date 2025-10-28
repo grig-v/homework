@@ -7,13 +7,17 @@
 
 
 public struct Chat {
-    public let user: User
+    public let user: User?
     
-    public func textMessage(to recipient: User, message: String) {
-        print("\(user.name) sent to \(recipient.name) the following message '\(message)'")
+    public func textMessage(to recipient: User?, message: String) {
+        if case let recipient? = recipient, let name = self.user?.name {
+            print("\(name) sent to \(recipient.name) the following message '\(message)'")
+        } else {
+            print("Recipient or(and) sender not found")
+        }
     }
     
-    public init(user: User) {
+    public init(user: User?) {
         self.user = user
     }
 }

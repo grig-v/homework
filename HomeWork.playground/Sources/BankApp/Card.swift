@@ -7,11 +7,11 @@
 
 
 public struct Card {
-    private let number: Int
-    private let name: String
+    public var number: Int?
+    public var name: String?
     private var amount = [Currency: Int]()
     
-    public init(number: Int, name: String) {
+    public init(number: Int?, name: String?) {
         self.number = number
         self.name = name
         for i in Currency.allCases {
@@ -49,4 +49,16 @@ public struct Card {
             print("Insufficient funds in the account :c")
         }
     }
+    // optional binding
+    public func returnName() -> String? {
+        guard let name = self.name else { return "The name not found" }
+        return name
+    }
+    
+    // nil coalescing
+    public func returnNumber() -> Int? {
+       return self.number ?? 0
+    }
+    
+    
 }

@@ -6,11 +6,11 @@
 //
 
 public enum TabsBar {
-    case home
-    case products
-    case operations
-    case finances
-    case more
+    case home(Home)
+    case products(Products)
+    case operations(Operations)
+    case finances(Finances)
+    case more(More)
 }
 
 

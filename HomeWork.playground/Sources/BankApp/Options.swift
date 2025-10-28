@@ -13,11 +13,4 @@ public class Options {
     init() {}
 }
 
-//public struct Setting {
-//    public var settings: Options
-//    
-//   public init() {
-//        self.settings = Options()
-//    }
-//}
 
