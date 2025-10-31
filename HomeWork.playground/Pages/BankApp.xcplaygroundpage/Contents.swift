@@ -3,23 +3,39 @@
 import Foundation
 
 // struct Card
-var card1 = Card(number: 1234123415345423, name: "Vasya Pupkin")
-var card2 = Card(number: 934981579248751, name: "Naruto Uzumaki")
-var card3 = Card(number: 24095348, name: "Jimmy Hendrix")
-var card4 = Card(number: nil, name: nil)
+var card1 = try? Card(number: 1234123415345423, name: "Vasya Pupkin")
+var card2 = try? Card(number: 934981579248751, name: "Naruto Uzumaki")
+var card3 = try? Card(number: 24095348, name: "Jimmy Hendrix")
+var card4 = try? Card(number: nil, name: nil)
+do {
+    var card5 = try Card(number: 12451254, name: "")
+} catch CardError.emptyName(let reason) {
+    print(reason)
+}
 
-let customer = card3.name
+let customer = card3?.name
+do {
+    try card1?.topUpBalance(currency: .usdt, sum: 100)
+} catch CardError.topUpError(let reason) {
+    reason
+}
+try? card1?.topUpBalance(currency: .gel, sum: 7)
 
-card1.topUpBalance(currency: .usdt, sum: 15)
-card1.topUpBalance(currency: .gel, sum: 7)
+card1?.showCurrentAmount()
+try? card1?.spend(currency: .usdt, sum: 4)
+card1?.showCurrentAmount()
+try? card1?.spend(currency: .usdt, sum: 20)
 
-card1.showCurrentAmount()
-card1.spend(currency: .usdt, sum: 4)
-card1.showCurrentAmount()
-card1.spend(currency: .usdt, sum: 20)
 
-card1.transfer(to: &card2, currency: .usdt, sum: 11)
-card1.transfer(to: &card2, currency: .usdt, sum: 4)
+card1?.showCurrentAmount()
+do {
+    try card1?.transfer(to: &card2, currency: .usdt, sum: 11)
+} catch CardError.transferError(let reason) {
+    print(reason) 
+}
+card1?.showCurrentAmount()
+
+
 
 // enum TabsBar
 let HomeTab = TabsBar.home(Home(cards: nil))
@@ -37,7 +53,7 @@ homeOptional.cards?.last
 homeOptional.cards?[5]?.name // nil
 homeOptional.cards?[5]?.name = "Vladimir the Circle"
 
-card4.returnName() //"The name not found"
+card4?.returnName() //"The name not found"
 homeOptional.cards?[5]?.returnName() // "Vladimir the Circle"
 
 homeOptional.cards?[5]?.returnNumber() // 0

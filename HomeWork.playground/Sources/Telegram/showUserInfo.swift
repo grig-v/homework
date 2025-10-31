@@ -6,19 +6,21 @@
 //
 
 
-public func showUserInfo(for user: User?) -> String {
-    guard case let user? = user else { return "The user doesn't exist" }
+public func showUserInfo(for user: User?) throws(UserError) -> String {
+    guard case let user? = user else { throw .notFound(reason: "The user doesn't exist")  }
     let name: String
     let photo: String
     if case let nickName? = user.name {
         name = nickName
     } else {
-        name = "nil"
+        name = "no name"
     }
-    if case let picture? = user.photo {
+    if user.photo != nil {
         photo = "true"
     } else {
-        photo = "nil"
+        photo = "no photo"
     }
     return "Name: \(name), photo: \(photo), id: \(user.id)"
+    
+    
 }
